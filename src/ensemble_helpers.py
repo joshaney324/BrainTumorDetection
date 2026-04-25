@@ -1,6 +1,8 @@
 from ensemble_boxes import weighted_boxes_fusion
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 
 def ensemble_predict(models, image_path, weights, iou_thr=0.5, skip_box_thr=0.3):
@@ -46,3 +48,22 @@ def ensemble_predict(models, image_path, weights, iou_thr=0.5, skip_box_thr=0.3)
         labels = np.array([])
 
     return boxes, scores, labels
+
+def visualize(image_path, save_path, boxes, scores, labels, names={0: "negative", 1: "positive"}):
+    img = Image.open(image_path)
+    fig, ax = plt.subplots(1, figsize=(8, 8))
+    ax.imshow(img)
+
+    for box, score, label in zip(boxes, scores, labels):
+        x1, y1, x2, y2 = box
+        ax.add_patch(patches.Rectangle(
+            (x1, y1), x2 - x1, y2 - y1,
+            linewidth=2, edgecolor="red", facecolor="none"
+        ))
+        ax.text(x1, y1 - 5, f"{names.get(int(label), '?')} {score:.2f}",
+                color="red", fontsize=10,
+                bbox=dict(facecolor="black", alpha=0.5, pad=2))
+
+    ax.axis("off")
+    plt.savefig(save_path)
+    plt.show()
