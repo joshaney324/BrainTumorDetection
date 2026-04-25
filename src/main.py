@@ -1,13 +1,71 @@
 from ultralytics import YOLO
-import optuna
+from ensemble_boxes import weighted_boxes_fusion
+import numpy as np
+from PIL import Image
 
-model = YOLO("../models/yolo26n.pt")
+# config
+data_path = "../data/combined/combined_data.yaml"
 
-model.train(data="../data/combined/combined_data.yaml",
-            epochs=1,
-            imgsz=512,
-            batch=16,
-            device="cpu"
+# set up 3 models more ensemble
+model_nano = YOLO("../models/yolo26n.pt")
+model_medium = YOLO("../models/yolo26m.pt")
+model_large = YOLO("../models/yolo26x.pt")
+
+
+# training / tuning of the 3 models
+
+# nano
+model_nano.tune(
+    data=data_path,
+    epochs=30,
+    iterations=100,
+    optimizer="AdamW",
+    plots=True,
+    save=True,
+)
+
+model_nano.train(data=data_path,
+            epochs=100
             )
 
-model.val(data="../data/combined/combined_data.yaml")
+# medium
+
+model_medium.tune(
+    data=data_path,
+    epochs=30,
+    iterations=100,
+    optimizer="AdamW",
+    plots=True,
+    save=True,
+)
+
+model_medium.train(data=data_path,
+            epochs=100
+            )
+
+# large
+
+model_large.tune(
+    data=data_path,
+    epochs=30,
+    iterations=100,
+    optimizer="AdamW",
+    plots=True,
+    save=True,
+)
+
+model_large.train(data=data_path,
+            epochs=100
+            )
+
+# validation
+model_nano.val(data=data_path)
+model_medium.val(data=data_path)
+model_large.val(data=data_path)
+
+# ensemble
+
+models = [model_nano, model_medium, model_large]
+
+# weight larger models
+weights = [model_nano, model_medium, model_large]
