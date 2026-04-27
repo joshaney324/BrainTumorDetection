@@ -2,13 +2,13 @@ from ultralytics import YOLO
 from ensemble_helpers import ensemble_predict, visualize
 
 # config
-data_path = "../data/combined/combined_data.yaml"
-tune = False
+data_path = "/home/x89h835/BrainTumorDetection/data/combined/combined_data.yaml"
+tune = True
 
 # set up 3 models more ensemble
-model_nano = YOLO("../models/yolo26n.pt")
-model_medium = YOLO("../models/yolo26m.pt")
-model_large = YOLO("../models/yolo26x.pt")
+model_nano = YOLO("/home/x89h835/BrainTumorDetection/models/yolo26n.pt")
+model_medium = YOLO("/home/x89h835/BrainTumorDetection/models/yolo26m.pt")
+model_large = YOLO("/home/x89h835/BrainTumorDetection/models/yolo26x.pt")
 
 # training / tuning of the 3 models
 
@@ -66,48 +66,48 @@ model_large.val(data=data_path)
 
 # nano
 results = model_nano.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\axial_00018_101.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/axial_00018_101.jpg")
 results[0].show()
-results[0].save("../example/nano/axial.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/nano/axial.png")
 
-results = model_nano.predict("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\coronal_33.jpg")
+results = model_nano.predict("/home/x89h835/BrainTumorDetection/data/combined/images/test/coronal_33.jpg")
 results[0].show()
-results[0].save("../example/nano/coronal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/nano/coronal.png")
 
 results = model_nano.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\sagittal_00000_121.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/sagittal_00000_121.jpg")
 results[0].show()
-results[0].save("../example/nano/sagittal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/nano/sagittal.png")
 
 # medium
 results = model_medium.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\axial_00018_101.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/axial_00018_101.jpg")
 results[0].show()
-results[0].save("../example/medium/axial.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/medium/axial.png")
 
-results = model_medium.predict("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\coronal_33.jpg")
+results = model_medium.predict("/home/x89h835/BrainTumorDetection/data/combined/images/test/coronal_33.jpg")
 results[0].show()
-results[0].save("../example/medium/coronal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/medium/coronal.png")
 
 results = model_medium.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\sagittal_00000_121.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/sagittal_00000_121.jpg")
 results[0].show()
-results[0].save("../example/medium/sagittal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/medium/sagittal.png")
 
 # large
 results = model_large.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\axial_00018_101.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/axial_00018_101.jpg")
 results[0].show()
-results[0].save("../example/large/axial.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/large/axial.png")
 
-results = model_large.predict("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\coronal_33.jpg")
+results = model_large.predict("/home/x89h835/BrainTumorDetection/data/combined/images/test/coronal_33.jpg")
 results[0].show()
-results[0].save("../example/large/coronal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/large/coronal.png")
 
 results = model_large.predict(
-    "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\sagittal_00000_121.jpg")
+    "/home/x89h835/BrainTumorDetection/data/combined/images/test/sagittal_00000_121.jpg")
 results[0].show()
-results[0].save("../example/large/sagittal.png")
+results[0].save("/home/x89h835/BrainTumorDetection/example/large/sagittal.png")
 
 # ensemble
 models = [model_nano, model_medium, model_large]
@@ -115,19 +115,19 @@ models = [model_nano, model_medium, model_large]
 # weight larger models
 weights = [1, 2, 3]
 boxes, scores, labels = ensemble_predict(models,
-                                         "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\axial_00018_101.jpg",
+                                         "/home/x89h835/BrainTumorDetection/data/combined/images/test/axial_00018_101.jpg",
                                          weights)
-visualize("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\axial_00018_101.jpg",
-          "../example/ensemble/axial.png", boxes, scores, labels)
+visualize("/home/x89h835/BrainTumorDetection/data/combined/images/test/axial_00018_101.jpg",
+          "/home/x89h835/BrainTumorDetection/example/ensemble/axial.png", boxes, scores, labels)
 
 boxes, scores, labels = ensemble_predict(models,
-                                         "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\coronal_33.jpg",
+                                         "/home/x89h835/BrainTumorDetection/data/combined/images/test/coronal_33.jpg",
                                          weights)
-visualize("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\coronal_33.jpg",
-          "../example/ensemble/coronal.png", boxes, scores, labels)
+visualize("/home/x89h835/BrainTumorDetection/data/combined/images/test/coronal_33.jpg",
+          "/home/x89h835/BrainTumorDetection/example/ensemble/coronal.png", boxes, scores, labels)
 
 boxes, scores, labels = ensemble_predict(models,
-                                         "C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\sagittal_00000_121.jpg",
+                                         "/home/x89h835/BrainTumorDetection/data/combined/images/test/sagittal_00000_121.jpg",
                                          weights)
-visualize("C:\\ComputerScience\\BrainTumorDetection\\data\\combined\\images\\test\\sagittal_00000_121.jpg",
-          "../example/ensemble/sagittal.png", boxes, scores, labels)
+visualize("/home/x89h835/BrainTumorDetection/data/combined/images/test/sagittal_00000_121.jpg",
+          "/home/x89h835/BrainTumorDetection/example/ensemble/sagittal.png", boxes, scores, labels)

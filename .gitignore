@@ -3,3 +3,5 @@ data
 .venv
 models
 runs
+*.err
+*.out
