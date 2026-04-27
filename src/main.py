@@ -17,7 +17,7 @@ if tune:
     model_nano.tune(
         data=data_path,
         epochs=30,
-        iterations=100,
+        iterations=10,
         optimizer="AdamW",
         plots=True,
         save=True,
@@ -33,7 +33,7 @@ if tune:
     model_medium.tune(
         data=data_path,
         epochs=30,
-        iterations=100,
+        iterations=10,
         optimizer="AdamW",
         plots=True,
         save=True,
@@ -49,7 +49,7 @@ if tune:
     model_large.tune(
         data=data_path,
         epochs=30,
-        iterations=100,
+        iterations=10,
         optimizer="AdamW",
         plots=True,
         save=True,
