@@ -24,7 +24,7 @@ if tune:
     )
 
 model_nano.train(data=data_path,
-                 epochs=1
+                 epochs=100
                  )
 
 # medium
@@ -40,7 +40,7 @@ if tune:
     )
 
 model_medium.train(data=data_path,
-                   epochs=1
+                   epochs=100
                    )
 
 # large
@@ -56,7 +56,7 @@ if tune:
     )
 
 model_large.train(data=data_path,
-                  epochs=1
+                  epochs=100
                   )
 
 # validation
